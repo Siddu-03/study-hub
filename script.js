@@ -2,6 +2,13 @@
  * ============================================================================
  * STUDY HUB — APPLICATION SCRIPT
  * Minimal, clean vanilla JavaScript for knowledge discovery and navigation.
+ * Features:
+ * - Semantic external resource hyperlinks with target="_blank" and rel="noopener noreferrer"
+ * - Independent topic checklist with real-time localStorage tracking
+ * - Hierarchical navigation (Field > Domain > Subject > Topic)
+ * - Academic design system with subtopic curriculum grouping
+ * - In-memory live search and subject-level filtering
+ * - Decoupled Study Hub Assistant chatbot integration point
  * ============================================================================
  */
 
@@ -668,7 +675,7 @@ function recordRecentTopic(topicId) {
 }
 
 // ----------------------------------------------------------------------------
-// 3. UI Helpers & Toast Notifications
+// 3. UI Helpers, Sanitization & Badges
 // ----------------------------------------------------------------------------
 function showToast(message) {
   const container = document.getElementById('toast-container');
@@ -702,6 +709,47 @@ function escapeHTML(str) {
     .replace(/'/g, '&#39;');
 }
 
+// Resource URL validation: returns safe URL string or null
+function getValidResourceUrl(url) {
+  if (!url || typeof url !== 'string' || !url.trim()) return null;
+  const trimmed = url.trim();
+  try {
+    const parsed = new URL(trimmed);
+    if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+      return parsed.href;
+    }
+  } catch (e) {
+    return null;
+  }
+  return null;
+}
+
+// Badges generator with SVG icons
+function getBadgeHtml(level, type) {
+  let levelHtml = '';
+  if (level) {
+    const l = level.toLowerCase();
+    levelHtml = `<span class="badge badge-${l}">
+      <span class="badge-dot" aria-hidden="true"></span>
+      ${escapeHTML(level)}
+    </span>`;
+  }
+
+  let typeHtml = '';
+  if (type) {
+    const t = type.toLowerCase();
+    const icon = t === 'video'
+      ? `<svg class="badge-icon" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>`
+      : `<svg class="badge-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>`;
+    typeHtml = `<span class="badge badge-${t}">
+      ${icon}
+      ${escapeHTML(type)}
+    </span>`;
+  }
+
+  return { levelHtml, typeHtml };
+}
+
 function getFieldIconSvg(iconName) {
   switch (iconName) {
     case 'code':
@@ -720,7 +768,6 @@ function getFieldIconSvg(iconName) {
 // 4. Data Loading & Indexing
 // ----------------------------------------------------------------------------
 async function loadDataset() {
-  const viewContainer = document.getElementById('view-container');
   try {
     const response = await fetch('data/study-hub.json');
     if (!response.ok) {
@@ -969,7 +1016,7 @@ function renderHomeView(container) {
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <circle cx="12" cy="12" r="10"/>
         </svg>
-        Structured Knowledge Directory
+        Curated Academic Knowledge Platform
       </div>
       <h1 id="hero-heading" class="hero-heading">Explore Knowledge. Learn Anything.</h1>
       <p class="hero-description">
@@ -1076,11 +1123,23 @@ function renderHomeView(container) {
         <div class="continue-grid">
           ${continueItems.map(item => {
             const isDone = state.completedTopics.has(item.topic.id);
+            const safeUrl = getValidResourceUrl(item.topic.link);
+            const titleHtml = safeUrl
+              ? `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="continue-resource-link" title="Open resource: ${escapeHTML(item.topic.title)} (opens in a new tab)">
+                  <span>${escapeHTML(item.topic.title)}</span>
+                  <svg class="external-link-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>`
+              : `<span class="continue-resource-link">${escapeHTML(item.topic.title)}</span>`;
+
             return `
               <div class="continue-card">
                 <div class="continue-card-top">
                   <div>
-                    <h4 class="continue-topic-title" data-topic-id="${item.topic.id}">${escapeHTML(item.topic.title)}</h4>
+                    ${titleHtml}
                     <span class="continue-topic-path">${escapeHTML(item.domain.name)} &rsaquo; ${escapeHTML(item.subject.name)}</span>
                   </div>
                   <span class="badge ${isDone ? 'badge-completed' : 'badge-beginner'}">
@@ -1089,8 +1148,11 @@ function renderHomeView(container) {
                 </div>
                 <div class="continue-card-bottom">
                   <span class="topic-time">⏱ ${item.topic.time || 15} mins</span>
-                  <button type="button" class="field-explore-link" data-topic-id="${item.topic.id}">
-                    ${isDone ? 'Review Topic &rarr;' : 'Continue &rarr;'}
+                  <button type="button" class="btn-topic-notes" data-topic-id="${item.topic.id}" title="View topic summary and study notes">
+                    <span>${isDone ? 'Review Notes' : 'Topic Notes'}</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
                   </button>
                 </div>
               </div>
@@ -1147,7 +1209,7 @@ function renderHomeView(container) {
     });
   });
 
-  // Continue Learning Topic Click
+  // Continue Learning Topic Notes Click
   container.querySelectorAll('[data-topic-id]').forEach(btn => {
     btn.addEventListener('click', () => {
       const topicId = btn.getAttribute('data-topic-id');
@@ -1337,6 +1399,16 @@ function renderSubjectView(container, subjectId) {
   const completedCount = topics.filter(t => state.completedTopics.has(t.id)).length;
   const progressPercent = topics.length > 0 ? Math.round((completedCount / topics.length) * 100) : 0;
 
+  // Group topics by subtopic for organized academic curriculum display
+  const subtopicMap = new Map();
+  filteredTopics.forEach(t => {
+    const groupName = t.subtopic || 'Curriculum Topics';
+    if (!subtopicMap.has(groupName)) {
+      subtopicMap.set(groupName, []);
+    }
+    subtopicMap.get(groupName).push(t);
+  });
+
   container.innerHTML = `
     <div class="view-header">
       <h1 class="view-header-title">${escapeHTML(subject.name)}</h1>
@@ -1382,35 +1454,67 @@ function renderSubjectView(container, subjectId) {
       </div>
     </div>
 
-    <!-- Topic List -->
-    <div class="topic-list" id="subject-topic-list">
+    <!-- Topic Checklist Groups -->
+    <div id="subject-topic-list">
       ${filteredTopics.length === 0 ? `
         <div class="empty-learning-state">
           <p>No topics match your current filter criteria.</p>
         </div>
-      ` : filteredTopics.map(t => {
-        const isCompleted = state.completedTopics.has(t.id);
-        const levelClass = t.level ? `badge-${t.level.toLowerCase()}` : 'badge-beginner';
-        const typeClass = t.type ? `badge-${t.type.toLowerCase()}` : 'badge-article';
-        return `
-          <div class="topic-row ${isCompleted ? 'completed' : ''}" data-topic-id="${t.id}">
-            <div class="topic-row-left">
-              <button type="button" class="completion-check-btn ${isCompleted ? 'completed' : ''}" data-toggle-id="${t.id}" aria-label="${isCompleted ? 'Mark incomplete: ' + t.title : 'Mark complete: ' + t.title}">
-                ${isCompleted ? '✓' : ''}
-              </button>
-              <div class="topic-row-details">
-                <button type="button" class="topic-row-title" data-nav-id="${t.id}">${escapeHTML(t.title)}</button>
-                ${t.subtopic ? `<span class="topic-row-subtopic">${escapeHTML(t.subtopic)}</span>` : ''}
-              </div>
-            </div>
-            <div class="topic-row-right">
-              <span class="badge ${levelClass}">${escapeHTML(t.level || 'Beginner')}</span>
-              <span class="badge ${typeClass}">${escapeHTML(t.type || 'Article')}</span>
-              <span class="topic-time">⏱ ${t.time || 15}m</span>
-            </div>
+      ` : Array.from(subtopicMap.entries()).map(([groupName, groupTopics]) => `
+        <div class="topic-subtopic-group">
+          <div class="subtopic-group-header">
+            <h3 class="subtopic-group-title">${escapeHTML(groupName)}</h3>
+            <span class="subtopic-group-count">${groupTopics.length} ${groupTopics.length === 1 ? 'Topic' : 'Topics'}</span>
           </div>
-        `;
-      }).join('')}
+
+          <div class="topic-list">
+            ${groupTopics.map(t => {
+              const isCompleted = state.completedTopics.has(t.id);
+              const { levelHtml, typeHtml } = getBadgeHtml(t.level, t.type);
+              const safeUrl = getValidResourceUrl(t.link);
+
+              // Clickable topic title opens resource in new tab if valid URL exists
+              const titleHtml = safeUrl
+                ? `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="topic-resource-link" title="Open resource: ${escapeHTML(t.title)} (opens in a new tab)">
+                    <span class="topic-link-title">${escapeHTML(t.title)}</span>
+                    <svg class="external-link-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>`
+                : `<span class="topic-title-text">${escapeHTML(t.title)}</span>`;
+
+              return `
+                <div class="topic-row ${isCompleted ? 'completed' : ''}" data-topic-id="${t.id}">
+                  <div class="topic-row-left">
+                    <button type="button" class="completion-check-btn ${isCompleted ? 'completed' : ''}" data-toggle-id="${t.id}" aria-label="${isCompleted ? 'Mark incomplete: ' + t.title : 'Mark complete: ' + t.title}">
+                      <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </button>
+                    <div class="topic-row-details">
+                      ${titleHtml}
+                      ${t.subtopic ? `<span class="topic-row-subtopic">${escapeHTML(t.subtopic)}</span>` : ''}
+                    </div>
+                  </div>
+                  <div class="topic-row-right">
+                    ${levelHtml}
+                    ${typeHtml}
+                    <span class="topic-time">⏱ ${t.time || 15}m</span>
+                    <button type="button" class="btn-topic-notes" data-nav-id="${t.id}" title="View topic summary, notes & related topics" aria-label="View notes for ${escapeHTML(t.title)}">
+                      <span>Notes</span>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `).join('')}
     </div>
   `;
 
@@ -1430,15 +1534,16 @@ function renderSubjectView(container, subjectId) {
     renderSubjectView(container, subjectId);
   });
 
-  // Attach Topic Row Listeners
+  // Attach Topic Notes Navigation Listeners
   container.querySelectorAll('[data-nav-id]').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
       const topicId = btn.getAttribute('data-nav-id');
       navigateTo({ view: 'topic', topicId });
     });
   });
 
-  // Completion Checkbox Toggles
+  // Completion Checkbox Toggles (Runs independently without triggering the resource hyperlink)
   container.querySelectorAll('[data-toggle-id]').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -1470,26 +1575,15 @@ function renderTopicView(container, topicId) {
   recordRecentTopic(topic.id);
 
   const isCompleted = state.completedTopics.has(topic.id);
-  const levelClass = topic.level ? `badge-${topic.level.toLowerCase()}` : 'badge-beginner';
-  const typeClass = topic.type ? `badge-${topic.type.toLowerCase()}` : 'badge-article';
-
-  // Validate link URL
-  let safeLink = '#';
-  try {
-    const parsed = new URL(topic.link);
-    if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
-      safeLink = parsed.href;
-    }
-  } catch (e) {
-    safeLink = '#';
-  }
+  const { levelHtml, typeHtml } = getBadgeHtml(topic.level, topic.type);
+  const safeUrl = getValidResourceUrl(topic.link);
 
   container.innerHTML = `
     <div class="topic-detail-card">
       <div class="topic-detail-header">
         <div class="topic-meta-row">
-          <span class="badge ${levelClass}">${escapeHTML(topic.level || 'Beginner')}</span>
-          <span class="badge ${typeClass}">${escapeHTML(topic.type || 'Article')}</span>
+          ${levelHtml}
+          ${typeHtml}
           <span class="topic-time">⏱ Estimated Learning Time: ${topic.time || 15} minutes</span>
           ${isCompleted ? `<span class="badge badge-completed">✓ Completed</span>` : ''}
         </div>
@@ -1514,14 +1608,16 @@ function renderTopicView(container, topicId) {
       <!-- Action Bar -->
       <div class="topic-actions-bar">
         <div class="action-buttons-left">
-          <a href="${safeLink}" target="_blank" rel="noopener noreferrer" class="btn-open-resource" id="btn-open-resource">
-            <span>Open Resource</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-              <polyline points="15 3 21 3 21 9"></polyline>
-              <line x1="10" y1="14" x2="21" y2="3"></line>
-            </svg>
-          </a>
+          ${safeUrl ? `
+            <a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="btn-open-resource" id="btn-open-resource">
+              <span>Open Resource</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+          ` : ''}
 
           <button type="button" class="btn-toggle-completion ${isCompleted ? 'completed' : ''}" id="btn-topic-complete">
             ${isCompleted ? '✓ Marked as Completed' : 'Mark as Completed'}
@@ -1529,7 +1625,7 @@ function renderTopicView(container, topicId) {
         </div>
       </div>
       <p class="resource-notice">
-        Note: Demonstration resource link. In production, this directs to verified academic courses, documentation, and research articles.
+        Note: Clicking "Open Resource" opens the verified learning resource in a new browser tab.
       </p>
 
       <!-- Topic Navigation (Previous / Next) -->
@@ -1620,9 +1716,21 @@ function renderPathsView(container) {
                     const tInfo = findTopic(tId);
                     const isDone = state.completedTopics.has(tId);
                     const title = tInfo ? tInfo.topic.title : tId;
+                    const safeUrl = getValidResourceUrl(tInfo ? tInfo.topic.link : null);
+                    const itemTitleHtml = safeUrl
+                      ? `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="path-topic-link" title="Open resource: ${escapeHTML(title)} (opens in a new tab)">
+                          <span>${escapeHTML(title)}</span>
+                          <svg class="external-link-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                          </svg>
+                        </a>`
+                      : `<span>${escapeHTML(title)}</span>`;
+
                     return `
                       <li class="path-topic-item ${isDone ? 'completed' : ''}">
-                        <span>${escapeHTML(title)}</span>
+                        ${itemTitleHtml}
                         <span>${isDone ? '✓' : '•'}</span>
                       </li>
                     `;
@@ -1880,7 +1988,7 @@ function initChatbot() {
           <ul style="padding-left: 1.2rem; margin-top: 0.35rem;">
             ${top.map(r => `<li><strong>${escapeHTML(r.title)}</strong> (${escapeHTML(r.type)})</li>`).join('')}
           </ul>
-          <p style="margin-top: 0.5rem;"><small>Would you like me to open any of these?</small></p>
+          <p style="margin-top: 0.5rem;"><small>Tip: Search in the top bar to open any topic directly.</small></p>
         `;
       } else {
         botMsg.innerHTML = `
@@ -1959,7 +2067,7 @@ document.addEventListener('DOMContentLoaded', () => {
     closeSearchOverlay();
   });
 
-  // Close search overlay with Escape key
+  // Keyboard shortcut '/' to focus search & Escape to close overlays
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeSearchOverlay();
@@ -1968,6 +2076,10 @@ document.addEventListener('DOMContentLoaded', () => {
         panel.style.display = 'none';
         document.getElementById('chatbot-toggle-btn')?.setAttribute('aria-expanded', 'false');
       }
+    } else if (e.key === '/' && document.activeElement !== searchInput && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      searchInput?.focus();
+      searchInput?.select();
     }
   });
 
