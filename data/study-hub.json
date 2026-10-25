@@ -1,0 +1,599 @@
+{
+  "fields": [
+    {
+      "id": "tech",
+      "name": "Tech",
+      "description": "Technology, computing, software engineering, and digital systems.",
+      "icon": "code",
+      "domains": [
+        {
+          "id": "cybersecurity",
+          "name": "Cybersecurity",
+          "description": "Protecting systems, networks, data, and applications from digital attacks.",
+          "subjects": [
+            {
+              "id": "web-security",
+              "name": "Web Security",
+              "description": "Defending web applications against common exploits, injection vulnerabilities, and authentication flaws.",
+              "topics": [
+                {
+                  "id": "sql-injection",
+                  "subtopic": "Injection Vulnerabilities",
+                  "title": "SQL Injection (SQLi)",
+                  "type": "Article",
+                  "level": "Beginner",
+                  "link": "https://example.com/demo/web-security/sql-injection",
+                  "notes": "Covers how unvalidated user inputs allow attackers to interfere with backend database queries. Explains parameterized queries as the primary defense.",
+                  "time": 20,
+                  "why_it_matters": "SQL injection remains one of the most critical web application vulnerabilities, leading to severe data breaches if left unmitigated.",
+                  "related_topics": ["xss-fundamentals", "csrf-defense"]
+                },
+                {
+                  "id": "xss-fundamentals",
+                  "subtopic": "Client-Side Attacks",
+                  "title": "Cross-Site Scripting (XSS)",
+                  "type": "Video",
+                  "level": "Beginner",
+                  "link": "https://example.com/demo/web-security/xss-fundamentals",
+                  "notes": "Details Stored, Reflected, and DOM-based XSS vulnerabilities. Explores Content Security Policy (CSP) and context-aware HTML output encoding.",
+                  "time": 25,
+                  "why_it_matters": "XSS allows malicious scripts to run in victims' browsers, compromising cookies, session tokens, and sensitive client data.",
+                  "related_topics": ["sql-injection", "csrf-defense"]
+                },
+                {
+                  "id": "csrf-defense",
+                  "subtopic": "Session Flaws",
+                  "title": "Cross-Site Request Forgery (CSRF)",
+                  "type": "Article",
+                  "level": "Intermediate",
+                  "link": "https://example.com/demo/web-security/csrf-defense",
+                  "notes": "Explains how unauthorized commands are transmitted from a trusted user. Discusses anti-CSRF tokens and SameSite cookie attributes.",
+                  "time": 18,
+                  "why_it_matters": "CSRF exploits ambient credentials (like cookies), forcing authenticated users to unintentionally perform sensitive actions.",
+                  "related_topics": ["xss-fundamentals"]
+                },
+                {
+                  "id": "cors-architecture",
+                  "subtopic": "Browser Security Models",
+                  "title": "CORS & Browser Origin Security",
+                  "type": "Article",
+                  "level": "Intermediate",
+                  "link": "https://example.com/demo/web-security/cors-architecture",
+                  "notes": "Comprehensive breakdown of Same-Origin Policy (SOP), preflight OPTIONS requests, and proper Access-Control header configurations.",
+                  "time": 22,
+                  "why_it_matters": "Misconfigured CORS headers can inadvertently expose private APIs to malicious third-party origins.",
+                  "related_topics": ["csrf-defense"]
+                }
+              ]
+            },
+            {
+              "id": "cryptography",
+              "name": "Applied Cryptography",
+              "description": "Mathematical principles and engineering practices for securing communication and sensitive data.",
+              "topics": [
+                {
+                  "id": "symmetric-vs-asymmetric",
+                  "subtopic": "Encryption Fundamentals",
+                  "title": "Symmetric vs Asymmetric Encryption",
+                  "type": "Video",
+                  "level": "Beginner",
+                  "link": "https://example.com/demo/cryptography/symmetric-vs-asymmetric",
+                  "notes": "Compares AES and ChaCha20 symmetric ciphers with RSA and ECC public-key cryptosystems, along with practical performance trade-offs.",
+                  "time": 30,
+                  "why_it_matters": "Modern secure communication relies on a hybrid model using asymmetric cryptography for key exchange and symmetric ciphers for bulk data.",
+                  "related_topics": ["tls-handshake", "hashing-signatures"]
+                },
+                {
+                  "id": "hashing-signatures",
+                  "subtopic": "Integrity & Non-Repudiation",
+                  "title": "Cryptographic Hash Functions & Digital Signatures",
+                  "type": "Article",
+                  "level": "Intermediate",
+                  "link": "https://example.com/demo/cryptography/hashing-signatures",
+                  "notes": "Examines collision resistance in SHA-256 and SHA-3, salt/pepper hashing for passwords (bcrypt/Argon2), and digital signature verification.",
+                  "time": 25,
+                  "why_it_matters": "Ensures message integrity and authenticates identity without ever revealing private credentials or raw passwords.",
+                  "related_topics": ["symmetric-vs-asymmetric", "tls-handshake"]
+                },
+                {
+                  "id": "tls-handshake",
+                  "subtopic": "Transport Security",
+                  "title": "The TLS 1.3 Handshake Protocol",
+                  "type": "Article",
+                  "level": "Advanced",
+                  "link": "https://example.com/demo/cryptography/tls-handshake",
+                  "notes": "Step-by-step walkthrough of TLS 1.3 key negotiation, Diffie-Hellman ephemeral exchange, and perfect forward secrecy.",
+                  "time": 35,
+                  "why_it_matters": "TLS is the backbone of HTTPS and internet confidentiality across all web and mobile applications.",
+                  "related_topics": ["symmetric-vs-asymmetric", "hashing-signatures"]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "artificial-intelligence",
+          "name": "Artificial Intelligence",
+          "description": "Creating intelligent systems, machine learning models, and cognitive architectures.",
+          "subjects": [
+            {
+              "id": "machine-learning-basics",
+              "name": "Machine Learning Foundations",
+              "description": "Core concepts, learning paradigms, and mathematical models that power modern AI systems.",
+              "topics": [
+                {
+                  "id": "supervised-learning",
+                  "subtopic": "Learning Paradigms",
+                  "title": "Supervised Learning & Regression",
+                  "type": "Article",
+                  "level": "Beginner",
+                  "link": "https://example.com/demo/ai/supervised-learning",
+                  "notes": "Introduction to labeled training data, linear regression, cost functions, gradient descent, and evaluation metrics (MSE, R2).",
+                  "time": 25,
+                  "why_it_matters": "Forms the foundation of predictive modeling across business forecasting, diagnostics, and classification tasks.",
+                  "related_topics": ["overfitting-regularization", "neural-networks-intro"]
+                },
+                {
+                  "id": "overfitting-regularization",
+                  "subtopic": "Model Validation",
+                  "title": "Bias-Variance Tradeoff & Regularization",
+                  "type": "Article",
+                  "level": "Intermediate",
+                  "link": "https://example.com/demo/ai/overfitting-regularization",
+                  "notes": "Detailed treatment of underfitting, overfitting, cross-validation, and L1 (Lasso) / L2 (Ridge) penalty terms.",
+                  "time": 20,
+                  "why_it_matters": "Crucial for building models that generalize accurately to unseen real-world data rather than memorizing training data.",
+                  "related_topics": ["supervised-learning"]
+                },
+                {
+                  "id": "neural-networks-intro",
+                  "subtopic": "Deep Learning",
+                  "title": "Artificial Neural Networks & Backpropagation",
+                  "type": "Video",
+                  "level": "Intermediate",
+                  "link": "https://example.com/demo/ai/neural-networks-intro",
+                  "notes": "Perceptrons, activation functions (ReLU, Sigmoid), computational graphs, chain rule calculus, and weights updating.",
+                  "time": 40,
+                  "why_it_matters": "Deep learning architectures power contemporary computer vision, speech synthesis, and large language models.",
+                  "related_topics": ["supervised-learning", "transformer-architectures"]
+                },
+                {
+                  "id": "transformer-architectures",
+                  "subtopic": "Modern Deep Learning",
+                  "title": "Attention Mechanisms & Transformers",
+                  "type": "Article",
+                  "level": "Advanced",
+                  "link": "https://example.com/demo/ai/transformer-architectures",
+                  "notes": "Self-attention mechanism, positional encodings, multi-head attention, and transformer encoder-decoder architectures.",
+                  "time": 45,
+                  "why_it_matters": "The core breakthrough behind state-of-the-art generative AI systems, modern NLP, and multimodal AI.",
+                  "related_topics": ["neural-networks-intro"]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "data-science",
+          "name": "Data Science",
+          "description": "Extracting actionable insights from structured and unstructured datasets using statistical methods.",
+          "subjects": [
+            {
+              "id": "data-analysis-python",
+              "name": "Data Analysis with Python",
+              "description": "Practical data manipulation, cleaning, and exploratory data analysis using industry-standard libraries.",
+              "topics": [
+                {
+                  "id": "pandas-dataframes",
+                  "subtopic": "Tabular Data Manipulation",
+                  "title": "Exploratory Data Analysis with Pandas",
+                  "type": "Article",
+                  "level": "Beginner",
+                  "link": "https://example.com/demo/data-science/pandas-dataframes",
+                  "notes": "Techniques for filtering, grouping, aggregating, handling missing values, and reshaping tabular datasets.",
+                  "time": 30,
+                  "why_it_matters": "Real-world data is messy; over 70% of a data scientist's time is spent wrangling and understanding data structures.",
+                  "related_topics": ["data-visualization-principles"]
+                },
+                {
+                  "id": "data-visualization-principles",
+                  "subtopic": "Visual Analytics",
+                  "title": "Effective Data Storytelling & Visualization",
+                  "type": "Video",
+                  "level": "Beginner",
+                  "link": "https://example.com/demo/data-science/data-visualization-principles",
+                  "notes": "Color theory, chart selection guidelines, decluttering visuals, and communicating statistical findings clearly to stakeholders.",
+                  "time": 25,
+                  "why_it_matters": "Data insights provide no value unless they can be communicated clearly to drive decision-making.",
+                  "related_topics": ["pandas-dataframes"]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cloud-computing",
+          "name": "Cloud Computing",
+          "description": "On-demand computing resources, containerized workloads, serverless services, and cloud architecture.",
+          "subjects": [
+            {
+              "id": "cloud-infrastructure",
+              "name": "Cloud Infrastructure & Containers",
+              "description": "Modern infrastructure paradigms including Docker containers, Kubernetes orchestration, and cloud primitives.",
+              "topics": [
+                {
+                  "id": "docker-fundamentals",
+                  "subtopic": "Containerization",
+                  "title": "Docker Containers & Images",
+                  "type": "Video",
+                  "level": "Beginner",
+                  "link": "https://example.com/demo/cloud/docker-fundamentals",
+                  "notes": "Understanding containerization vs virtualization, Dockerfiles, multi-stage builds, and container networking.",
+                  "time": 30,
+                  "why_it_matters": "Ensures environment parity across local development, testing, and production servers.",
+                  "related_topics": ["kubernetes-orchestration"]
+                },
+                {
+                  "id": "kubernetes-orchestration",
+                  "subtopic": "Orchestration",
+                  "title": "Kubernetes Architecture & Pod Lifecycle",
+                  "type": "Article",
+                  "level": "Advanced",
+                  "link": "https://example.com/demo/cloud/kubernetes-orchestration",
+                  "notes": "Control plane components, worker nodes, Pods, Deployments, Services, Ingress controllers, and automated scaling.",
+                  "time": 40,
+                  "why_it_matters": "Kubernetes is the de facto operating system for enterprise-scale distributed cloud applications.",
+                  "related_topics": ["docker-fundamentals"]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "programming-languages",
+          "name": "Programming Languages",
+          "description": "Language paradigms, memory safety, compilers, and modern idiomatic programming practices.",
+          "subjects": [
+            {
+              "id": "modern-javascript",
+              "name": "Modern JavaScript & TypeScript",
+              "description": "Deep dive into execution context, event loop, asynchronous patterns, and static type safety.",
+              "topics": [
+                {
+                  "id": "event-loop-async",
+                  "subtopic": "Runtime Mechanics",
+                  "title": "The JavaScript Event Loop & Concurrency",
+                  "type": "Video",
+                  "level": "Intermediate",
+                  "link": "https://example.com/demo/languages/event-loop-async",
+                  "notes": "Call stack, Web APIs, microtask queue, macrotask queue, Promises, and async/await mechanics.",
+                  "time": 25,
+                  "why_it_matters": "Mastering asynchronous flow prevents UI freezes, race conditions, and unhandled promise rejections in web apps.",
+                  "related_topics": ["typescript-generics"]
+                },
+                {
+                  "id": "typescript-generics",
+                  "subtopic": "Type Safety",
+                  "title": "TypeScript Generics & Utility Types",
+                  "type": "Article",
+                  "level": "Intermediate",
+                  "link": "https://example.com/demo/languages/typescript-generics",
+                  "notes": "Generic constraints, type inference, conditional types, Mapped Types, and built-in helpers (Pick, Omit, Partial).",
+                  "time": 28,
+                  "why_it_matters": "Allows developers to build reusable, resilient libraries with strict compile-time guarantees.",
+                  "related_topics": ["event-loop-async"]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "full-stack-dev",
+          "name": "Full Stack Development",
+          "description": "End-to-end web architecture from accessible frontend interfaces to scalable backend APIs.",
+          "subjects": [
+            {
+              "id": "web-architecture",
+              "name": "Web Application Architecture",
+              "description": "System design for web applications, state management, caching, and database design.",
+              "topics": [
+                {
+                  "id": "rest-api-design",
+                  "subtopic": "API Architecture",
+                  "title": "RESTful API Design & HTTP Semantics",
+                  "type": "Article",
+                  "level": "Beginner",
+                  "link": "https://example.com/demo/fullstack/rest-api-design",
+                  "notes": "HTTP methods, status code semantics, idempotent operations, pagination strategies, and API versioning patterns.",
+                  "time": 22,
+                  "why_it_matters": "Well-architected APIs are intuitive, stable for client integrations, and easy to maintain over time.",
+                  "related_topics": ["sql-injection", "cors-architecture"]
+                },
+                {
+                  "id": "database-indexing",
+                  "subtopic": "Storage Optimization",
+                  "title": "Relational Database Indexing & Query Tuning",
+                  "type": "Article",
+                  "level": "Intermediate",
+                  "link": "https://example.com/demo/fullstack/database-indexing",
+                  "notes": "B-Tree indexes, composite indexes, query execution plans (EXPLAIN), and table scan mitigation.",
+                  "time": 30,
+                  "why_it_matters": "Poor indexing is the most common cause of catastrophic performance degradation as data volume grows.",
+                  "related_topics": ["rest-api-design"]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "devops",
+          "name": "DevOps",
+          "description": "Automating software delivery, infrastructure management, continuous testing, and observability.",
+          "subjects": [
+            {
+              "id": "continuous-delivery",
+              "name": "Continuous Integration & Delivery (CI/CD)",
+              "description": "Automated pipelines for testing, linting, packaging, and deploying software reliably.",
+              "topics": [
+                {
+                  "id": "cicd-best-practices",
+                  "subtopic": "Pipeline Automation",
+                  "title": "Building Reliable CI/CD Pipelines",
+                  "type": "Video",
+                  "level": "Beginner",
+                  "link": "https://example.com/demo/devops/cicd-best-practices",
+                  "notes": "Trigger mechanisms, stage parallelization, automated smoke tests, rollback strategies, and immutable artifacts.",
+                  "time": 25,
+                  "why_it_matters": "Enables teams to ship high-quality updates rapidly and with confidence, reducing downtime.",
+                  "related_topics": ["docker-fundamentals"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "non-tech",
+      "name": "Non-Tech",
+      "description": "Disciplines from humanities, business, economics, cognitive psychology, and visual design.",
+      "icon": "compass",
+      "domains": [
+        {
+          "id": "design-ux",
+          "name": "Design & UX",
+          "description": "User experience research, visual hierarchy, interaction design, and cognitive accessibility.",
+          "subjects": [
+            {
+              "id": "interaction-design",
+              "name": "Interaction Design Principles",
+              "description": "Foundational ergonomics, mental models, feedback loops, and usability heuristics for human-computer interfaces.",
+              "topics": [
+                {
+                  "id": "nielsen-heuristics",
+                  "subtopic": "Usability Evaluation",
+                  "title": "Jakob Nielsen's 10 Usability Heuristics",
+                  "type": "Article",
+                  "level": "Beginner",
+                  "link": "https://example.com/demo/design/nielsen-heuristics",
+                  "notes": "Walkthrough of visibility of system status, match between system and real world, error prevention, and recognition over recall.",
+                  "time": 25,
+                  "why_it_matters": "Provides a universally respected framework for spotting usability issues before user testing even begins.",
+                  "related_topics": ["visual-hierarchy-typography"]
+                },
+                {
+                  "id": "visual-hierarchy-typography",
+                  "subtopic": "Visual Layout",
+                  "title": "Visual Hierarchy, Spacing & Typography",
+                  "type": "Video",
+                  "level": "Beginner",
+                  "link": "https://example.com/demo/design/visual-hierarchy-typography",
+                  "notes": "Scale, contrast, whitespace, grouping (Gestalt laws), and typographic scales to guide human eye scanning.",
+                  "time": 20,
+                  "why_it_matters": "Users scan web interfaces in F-shaped and Z-shaped patterns; clear hierarchy ensures immediate comprehension.",
+                  "related_topics": ["nielsen-heuristics"]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cognitive-science",
+          "name": "Cognitive Science & Psychology",
+          "description": "Understanding human perception, memory consolidation, mental models, and decision-making.",
+          "subjects": [
+            {
+              "id": "learning-science",
+              "name": "The Science of Learning",
+              "description": "Evidence-based techniques for mastering complex topics, long-term retention, and deliberate practice.",
+              "topics": [
+                {
+                  "id": "spaced-repetition-retrieval",
+                  "subtopic": "Memory Consolidation",
+                  "title": "Spaced Repetition & Active Retrieval",
+                  "type": "Article",
+                  "level": "Beginner",
+                  "link": "https://example.com/demo/cognitive/spaced-repetition-retrieval",
+                  "notes": "Ebbinghaus forgetting curve, Leitner system, active recall testing effect, and interval scheduling.",
+                  "time": 18,
+                  "why_it_matters": "Active retrieval produces significantly higher long-term retention compared to passive rereading or highlighting.",
+                  "related_topics": ["cognitive-load-theory"]
+                },
+                {
+                  "id": "cognitive-load-theory",
+                  "subtopic": "Working Memory",
+                  "title": "Cognitive Load Theory in Knowledge Acquisition",
+                  "type": "Article",
+                  "level": "Intermediate",
+                  "link": "https://example.com/demo/cognitive/cognitive-load-theory",
+                  "notes": "Intrinsic, extraneous, and germane cognitive load; working memory limitations; and chunking strategies.",
+                  "time": 24,
+                  "why_it_matters": "Helps learners and educators structure information so working memory is not overwhelmed.",
+                  "related_topics": ["spaced-repetition-retrieval"]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "business-strategy",
+          "name": "Business Strategy & Product",
+          "description": "Frameworks for validating market needs, building sustainable products, and strategic execution.",
+          "subjects": [
+            {
+              "id": "product-discovery",
+              "name": "Product Discovery & Management",
+              "description": "Identifying customer problems, hypothesis testing, unit economics, and prioritizing product features.",
+              "topics": [
+                {
+                  "id": "jobs-to-be-done",
+                  "subtopic": "Customer Research",
+                  "title": "Jobs-to-be-Done (JTBD) Framework",
+                  "type": "Article",
+                  "level": "Beginner",
+                  "link": "https://example.com/demo/business/jobs-to-be-done",
+                  "notes": "Focusing on the underlying progress a customer desires rather than demographic traits or superficial feature requests.",
+                  "time": 20,
+                  "why_it_matters": "Products fail when they build features customers requested but that do not solve their core underlying struggle.",
+                  "related_topics": ["nielsen-heuristics"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "interdisciplinary",
+      "name": "Interdisciplinary",
+      "description": "Subjects connecting computing, biological systems, policy, economics, and ethical governance.",
+      "icon": "git-merge",
+      "domains": [
+        {
+          "id": "tech-ethics",
+          "name": "Tech Ethics & Digital Rights",
+          "description": "Moral philosophies, algorithmic accountability, data sovereignty, and technological governance.",
+          "subjects": [
+            {
+              "id": "ai-governance",
+              "name": "AI Ethics & Algorithmic Fairness",
+              "description": "Analyzing bias in automated decision systems, transparency, privacy rights, and responsible AI guidelines.",
+              "topics": [
+                {
+                  "id": "algorithmic-bias",
+                  "subtopic": "Fairness in Machine Learning",
+                  "title": "Detecting & Mitigating Algorithmic Bias",
+                  "type": "Article",
+                  "level": "Intermediate",
+                  "link": "https://example.com/demo/ethics/algorithmic-bias",
+                  "notes": "Disparate impact, representation disparities in training corpora, demographic parity, and ethical auditing methods.",
+                  "time": 28,
+                  "why_it_matters": "Automated scoring systems can amplify historic societal discrimination if unchecked.",
+                  "related_topics": ["supervised-learning", "nielsen-heuristics"]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bioinformatics",
+          "name": "Bioinformatics & Computational Biology",
+          "description": "Applying algorithmic computation and statistical modeling to biological sequences and molecular structures.",
+          "subjects": [
+            {
+              "id": "genomic-data",
+              "name": "Sequence Analysis & Genomics",
+              "description": "Dynamic programming for sequence alignment, BLAST heuristics, and genome variant discovery.",
+              "topics": [
+                {
+                  "id": "sequence-alignment",
+                  "subtopic": "Algorithmic Genomics",
+                  "title": "Pairwise Sequence Alignment (Needleman-Wunsch & Smith-Waterman)",
+                  "type": "Article",
+                  "level": "Advanced",
+                  "link": "https://example.com/demo/bioinformatics/sequence-alignment",
+                  "notes": "Global vs local sequence alignment using dynamic programming matrices, scoring schemas, and gap penalty formulations.",
+                  "time": 35,
+                  "why_it_matters": "Fundamental to identifying evolutionary relationships, functional gene domains, and disease-causing mutations.",
+                  "related_topics": ["supervised-learning"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "miscellaneous",
+      "name": "Miscellaneous",
+      "description": "Productivity systems, academic research methodologies, and meta-learning disciplines.",
+      "icon": "layers",
+      "domains": [
+        {
+          "id": "knowledge-management",
+          "name": "Personal Knowledge Management",
+          "description": "Systems, taxonomies, and digital tools for collecting, organizing, and synthesizing insights over a lifetime.",
+          "subjects": [
+            {
+              "id": "pkm-systems",
+              "name": "PKM Architectures & Note-Taking",
+              "description": "Systematic frameworks for personal knowledge organization, bidirectional linking, and lifelong learning.",
+              "topics": [
+                {
+                  "id": "zettelkasten-method",
+                  "subtopic": "Note Organization",
+                  "title": "The Zettelkasten Method & Atomic Notes",
+                  "type": "Article",
+                  "level": "Beginner",
+                  "link": "https://example.com/demo/misc/zettelkasten-method",
+                  "notes": "Niklas Luhmann's slip-box system: literature notes vs permanent notes, atomic concepts, and emergent connections.",
+                  "time": 22,
+                  "why_it_matters": "Transforms passive bookmarking into active intellectual compounding and synthesis.",
+                  "related_topics": ["spaced-repetition-retrieval"]
+                },
+                {
+                  "id": "building-second-brain",
+                  "subtopic": "Information Workflow",
+                  "title": "CODE & PARA Organization Frameworks",
+                  "type": "Video",
+                  "level": "Beginner",
+                  "link": "https://example.com/demo/misc/building-second-brain",
+                  "notes": "Capture, Organize, Distill, Express (CODE) and Projects, Areas, Resources, Archives (PARA) organizational taxonomy.",
+                  "time": 20,
+                  "why_it_matters": "Eliminates digital clutter and aligns saved information with actionable outcomes and projects.",
+                  "related_topics": ["zettelkasten-method"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "learning_paths": [
+    {
+      "id": "path-web-security",
+      "title": "Web Application Security Specialist",
+      "domain": "Cybersecurity",
+      "description": "A curated sequence covering client-side vulnerabilities, backend injection flaws, and transport-layer security.",
+      "estimated_hours": 12,
+      "topic_ids": ["sql-injection", "xss-fundamentals", "csrf-defense", "cors-architecture", "tls-handshake"]
+    },
+    {
+      "id": "path-modern-fullstack",
+      "title": "Modern Full-Stack Engineering",
+      "domain": "Tech Foundations",
+      "description": "Build high-performance, robust web applications from frontend concurrency to API architecture and database indexing.",
+      "estimated_hours": 15,
+      "topic_ids": ["event-loop-async", "typescript-generics", "rest-api-design", "database-indexing", "docker-fundamentals"]
+    },
+    {
+      "id": "path-effective-learner",
+      "title": "Meta-Learning & Knowledge Mastery",
+      "domain": "Cognitive Science & PKM",
+      "description": "Master evidence-based study techniques, active recall, cognitive load management, and personal knowledge systems.",
+      "estimated_hours": 8,
+      "topic_ids": ["spaced-repetition-retrieval", "cognitive-load-theory", "zettelkasten-method", "building-second-brain"]
+    }
+  ]
+}
