@@ -1,0 +1,268 @@
+{
+  "fields": [
+    {
+      "id": "tech",
+      "name": "Tech",
+      "description": "Technology, computing, software engineering, and digital systems.",
+      "icon": "code",
+      "domains": [
+        {
+          "id": "cybersecurity",
+          "name": "Cybersecurity",
+          "description": "Protecting systems, networks, data, and applications from digital attacks.",
+          "subjects": [
+            {
+              "id": "web-security",
+              "name": "Web Security",
+              "description": "Defending web applications against common exploits, injection vulnerabilities, and authentication flaws.",
+              "dataFile": "data/tech/cybersecurity/web-security.json",
+              "topicCount": 4
+            },
+            {
+              "id": "cryptography",
+              "name": "Applied Cryptography",
+              "description": "Mathematical principles and engineering practices for securing communication and sensitive data.",
+              "dataFile": "data/tech/cybersecurity/cryptography.json",
+              "topicCount": 3
+            }
+          ]
+        },
+        {
+          "id": "artificial-intelligence",
+          "name": "Artificial Intelligence",
+          "description": "Creating intelligent systems, machine learning models, and cognitive architectures.",
+          "subjects": [
+            {
+              "id": "machine-learning-basics",
+              "name": "Machine Learning Foundations",
+              "description": "Core concepts, learning paradigms, and mathematical models that power modern AI systems.",
+              "dataFile": "data/tech/artificial-intelligence/machine-learning-basics.json",
+              "topicCount": 4
+            }
+          ]
+        },
+        {
+          "id": "data-science",
+          "name": "Data Science",
+          "description": "Extracting actionable insights from structured and unstructured datasets using statistical methods.",
+          "subjects": [
+            {
+              "id": "data-analysis-python",
+              "name": "Data Analysis with Python",
+              "description": "Practical data manipulation, cleaning, and exploratory data analysis using industry-standard libraries.",
+              "dataFile": "data/tech/data-science/data-analysis-python.json",
+              "topicCount": 2
+            }
+          ]
+        },
+        {
+          "id": "cloud-computing",
+          "name": "Cloud Computing",
+          "description": "On-demand computing resources, containerized workloads, serverless services, and cloud architecture.",
+          "subjects": [
+            {
+              "id": "cloud-infrastructure",
+              "name": "Cloud Infrastructure & Containers",
+              "description": "Modern infrastructure paradigms including Docker containers, Kubernetes orchestration, and cloud primitives.",
+              "dataFile": "data/tech/cloud-computing/cloud-infrastructure.json",
+              "topicCount": 2
+            }
+          ]
+        },
+        {
+          "id": "programming-languages",
+          "name": "Programming Languages",
+          "description": "Language paradigms, memory safety, compilers, and modern idiomatic programming practices.",
+          "subjects": [
+            {
+              "id": "modern-javascript",
+              "name": "Modern JavaScript & TypeScript",
+              "description": "Deep dive into execution context, event loop, asynchronous patterns, and static type safety.",
+              "dataFile": "data/tech/programming-languages/modern-javascript.json",
+              "topicCount": 2
+            }
+          ]
+        },
+        {
+          "id": "full-stack-dev",
+          "name": "Full Stack Development",
+          "description": "End-to-end web architecture from accessible frontend interfaces to scalable backend APIs.",
+          "subjects": [
+            {
+              "id": "web-architecture",
+              "name": "Web Application Architecture",
+              "description": "System design for web applications, state management, caching, and database design.",
+              "dataFile": "data/tech/full-stack-dev/web-architecture.json",
+              "topicCount": 2
+            }
+          ]
+        },
+        {
+          "id": "devops",
+          "name": "DevOps",
+          "description": "Automating software delivery, infrastructure management, continuous testing, and observability.",
+          "subjects": [
+            {
+              "id": "continuous-delivery",
+              "name": "Continuous Integration & Delivery (CI/CD)",
+              "description": "Automated pipelines for testing, linting, packaging, and deploying software reliably.",
+              "dataFile": "data/tech/devops/continuous-delivery.json",
+              "topicCount": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "non-tech",
+      "name": "Non-Tech",
+      "description": "Disciplines from humanities, business, economics, cognitive psychology, and visual design.",
+      "icon": "compass",
+      "domains": [
+        {
+          "id": "design-ux",
+          "name": "Design & UX",
+          "description": "User experience research, visual hierarchy, interaction design, and cognitive accessibility.",
+          "subjects": [
+            {
+              "id": "interaction-design",
+              "name": "Interaction Design Principles",
+              "description": "Foundational ergonomics, mental models, feedback loops, and usability heuristics for human-computer interfaces.",
+              "dataFile": "data/non-tech/design-ux/interaction-design.json",
+              "topicCount": 2
+            }
+          ]
+        },
+        {
+          "id": "cognitive-science",
+          "name": "Cognitive Science & Psychology",
+          "description": "Understanding human perception, memory consolidation, mental models, and decision-making.",
+          "subjects": [
+            {
+              "id": "learning-science",
+              "name": "The Science of Learning",
+              "description": "Evidence-based techniques for mastering complex topics, long-term retention, and deliberate practice.",
+              "dataFile": "data/non-tech/cognitive-science/learning-science.json",
+              "topicCount": 2
+            }
+          ]
+        },
+        {
+          "id": "business-strategy",
+          "name": "Business Strategy & Product",
+          "description": "Frameworks for validating market needs, building sustainable products, and strategic execution.",
+          "subjects": [
+            {
+              "id": "product-discovery",
+              "name": "Product Discovery & Management",
+              "description": "Identifying customer problems, hypothesis testing, unit economics, and prioritizing product features.",
+              "dataFile": "data/non-tech/business-strategy/product-discovery.json",
+              "topicCount": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "interdisciplinary",
+      "name": "Interdisciplinary",
+      "description": "Subjects connecting computing, biological systems, policy, economics, and ethical governance.",
+      "icon": "git-merge",
+      "domains": [
+        {
+          "id": "tech-ethics",
+          "name": "Tech Ethics & Digital Rights",
+          "description": "Moral philosophies, algorithmic accountability, data sovereignty, and technological governance.",
+          "subjects": [
+            {
+              "id": "ai-governance",
+              "name": "AI Ethics & Algorithmic Fairness",
+              "description": "Analyzing bias in automated decision systems, transparency, privacy rights, and responsible AI guidelines.",
+              "dataFile": "data/interdisciplinary/tech-ethics/ai-governance.json",
+              "topicCount": 1
+            }
+          ]
+        },
+        {
+          "id": "bioinformatics",
+          "name": "Bioinformatics & Computational Biology",
+          "description": "Applying algorithmic computation and statistical modeling to biological sequences and molecular structures.",
+          "subjects": [
+            {
+              "id": "genomic-data",
+              "name": "Sequence Analysis & Genomics",
+              "description": "Dynamic programming for sequence alignment, BLAST heuristics, and genome variant discovery.",
+              "dataFile": "data/interdisciplinary/bioinformatics/genomic-data.json",
+              "topicCount": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "miscellaneous",
+      "name": "Miscellaneous",
+      "description": "Productivity systems, academic research methodologies, and meta-learning disciplines.",
+      "icon": "layers",
+      "domains": [
+        {
+          "id": "knowledge-management",
+          "name": "Personal Knowledge Management",
+          "description": "Systems, taxonomies, and digital tools for collecting, organizing, and synthesizing insights over a lifetime.",
+          "subjects": [
+            {
+              "id": "pkm-systems",
+              "name": "PKM Architectures & Note-Taking",
+              "description": "Systematic frameworks for personal knowledge organization, bidirectional linking, and lifelong learning.",
+              "dataFile": "data/miscellaneous/knowledge-management/pkm-systems.json",
+              "topicCount": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "learning_paths": [
+    {
+      "id": "path-web-security",
+      "title": "Web Application Security Specialist",
+      "domain": "Cybersecurity",
+      "description": "A curated sequence covering client-side vulnerabilities, backend injection flaws, and transport-layer security.",
+      "estimated_hours": 12,
+      "topic_ids": [
+        "sql-injection",
+        "xss-fundamentals",
+        "csrf-defense",
+        "cors-architecture",
+        "tls-handshake"
+      ]
+    },
+    {
+      "id": "path-modern-fullstack",
+      "title": "Modern Full-Stack Engineering",
+      "domain": "Tech Foundations",
+      "description": "Build high-performance, robust web applications from frontend concurrency to API architecture and database indexing.",
+      "estimated_hours": 15,
+      "topic_ids": [
+        "event-loop-async",
+        "typescript-generics",
+        "rest-api-design",
+        "database-indexing",
+        "docker-fundamentals"
+      ]
+    },
+    {
+      "id": "path-effective-learner",
+      "title": "Meta-Learning & Knowledge Mastery",
+      "domain": "Cognitive Science & PKM",
+      "description": "Master evidence-based study techniques, active recall, cognitive load management, and personal knowledge systems.",
+      "estimated_hours": 8,
+      "topic_ids": [
+        "spaced-repetition-retrieval",
+        "cognitive-load-theory",
+        "zettelkasten-method",
+        "building-second-brain"
+      ]
+    }
+  ]
+}

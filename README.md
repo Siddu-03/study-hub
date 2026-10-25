@@ -1,99 +1,25 @@
-# Study Hub — Structured Learning Resource Discovery Platform
+# Study Hub — Structured Learning Resource Discovery Platform & Admin Management
 
 A clean, modern, responsive academic knowledge platform that enables students, researchers, and self-directed learners to discover curated learning resources across a structured hierarchy of knowledge disciplines.
 
+Includes a **multi-JSON data architecture** and an **Admin Management Panel** for managing fields, domains, subjects, topics, and learning resources.
+
 ---
 
-## 🌟 Philosophy & Overview
+## 🌟 Philosophy & Taxonomy
 
-Unlike traditional learning management systems that attempt to host duplicate courses, **Study Hub** focuses on organizing existing human knowledge. It maps the academic and technical landscape into an intuitive 5-tier taxonomy:
+Unlike traditional learning management systems that attempt to host duplicate courses, **Study Hub** organizes existing human knowledge into an intuitive 5-tier taxonomy:
 
 $$\text{Field} \longrightarrow \text{Domain} \longrightarrow \text{Subject} \longrightarrow \text{Topic} \longrightarrow \text{Resource}$$
 
 ---
 
-## ✨ Main Features (Implemented)
+## 🗂️ Multi-JSON Data Architecture
 
-- **Light-Themed Academic Design System**: Clean, minimal interface built with an 8px spacing scale, subtle shadows, and high contrast typography (Inter / system fonts).
-- **Multi-Level Knowledge Navigation**:
-  - **Explore by Field**: Categorized into *Tech*, *Non-Tech*, *Interdisciplinary*, and *Miscellaneous*.
-  - **Domain Explorer**: Drill down into specific disciplines (e.g., Cybersecurity, Artificial Intelligence, Cognitive Science, PKM).
-  - **Subject Curriculums**: View complete topic lists, progress percentages, and subject descriptions.
-  - **Topic Detail View**: In-depth view featuring subtopics, difficulty badges, format badges (Article / Video), estimated learning durations, "Why this topic matters", and practical notes.
-- **Interactive Learning Features**:
-  - **Topic Completion Tracker**: Mark topics as completed with real-time updates and persistence across browser sessions via `localStorage`.
-  - **Sequential Topic Navigation**: Step forward and backward through subject topics via "Previous Topic" and "Next Topic" buttons.
-  - **Related Topics Discovery**: Instant navigation between related topics across different subjects and domains.
-  - **Curated Learning Paths**: High-level multi-topic sequences with visual progress meters (e.g., Web Application Security Specialist, Modern Full-Stack Engineering, Meta-Learning & Knowledge Mastery).
-  - **Continue Learning Dashboard**: Jump back into recently visited or in-progress topics directly from the homepage.
-- **Instant Global Search System**:
-  - Live, case-insensitive partial text search across Fields, Domains, Subjects, Topic titles, and Resource titles.
-  - Keyboard accessible overlay with clear buttons and empty result states.
-- **Subject-Level Filtering**:
-  - Instant text filter for topics within the active subject.
-  - Filter by Difficulty (*All*, *Beginner*, *Intermediate*, *Advanced*).
-  - Filter by Resource Type (*All*, *Article*, *Video*).
-- **Responsive Layout**: Designed for seamless use on desktop, tablet, and mobile displays without external UI frameworks.
-- **Study Hub Assistant (Chatbot Integration Point)**:
-  - Clean floating circular action button in the bottom-right corner.
-  - Light-themed drawer panel that searches the Study Hub knowledge base and provides instant subject/topic recommendations.
-  - Clean separation of HTML, CSS, and JS ready for future AI/backend agent connectivity.
+Study Hub organizes subjects into modular JSON files rather than a single monolithic file. This provides instant startup performance, simple Git collaboration, and modular updates.
 
----
-
-## 🛠️ Technology Stack
-
-- **HTML5**: Semantic elements (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<aside>`, `<footer>`) with ARIA accessibility labels and visible focus indicators.
-- **Vanilla CSS**: CSS Custom Properties (variables), CSS Grid, Flexbox, media queries for responsive layouts, and `@media (prefers-reduced-motion: reduce)` support. No Tailwind or Bootstrap.
-- **Vanilla JavaScript**: Pure modern JavaScript (ES6+) for router management, in-memory search, filtering, `localStorage` state management, and DOM rendering. No React, Vue, or Angular.
-- **Data Source**: Pure JSON (`data/study-hub.json`) loaded via the Fetch API with embedded fallback resiliency for local `file://` execution.
-
----
-
-## 📁 Project Folder Structure
-
-```text
-study-hub/
-├── index.html              # Main HTML markup and application containers
-├── style.css               # Complete stylesheet, design tokens, and responsive rules
-├── script.js               # Router, search engine, filtering, and state logic
-├── data/
-│   └── study-hub.json      # Structured hierarchical learning dataset
-├── assets/                 # Directory for static images and media assets
-├── .gitignore              # Ignores credentials, secrets, and system files
-└── README.md               # Project documentation and guide
-```
-
----
-
-## 🚀 Instructions for Running Locally
-
-Study Hub requires no build steps, bundlers, compilers, or package installations.
-
-### Option 1: Using Python's Built-in HTTP Server (Recommended)
-Open a terminal inside the `study-hub/` directory and run:
-
-```bash
-# Python 3
-python -m http.server 8000
-```
-Then visit `http://localhost:8000` in your web browser.
-
-### Option 2: Using Node.js (npx serve or http-server)
-If you have Node.js installed:
-
-```bash
-npx serve .
-```
-
-### Option 3: Direct File Opening
-Double-click `index.html` or open it directly in Google Chrome, Microsoft Edge, or Mozilla Firefox. The application includes a built-in dataset fallback to ensure full interactivity even when local `file://` browser security policies restrict raw `fetch()` calls.
-
----
-
-## 📊 Explanation of the JSON Data Source
-
-The dataset located at `data/study-hub.json` follows a strict hierarchical schema:
+### 1. Central Catalog (`data/catalog.json`)
+The catalog serves as the single source of truth for taxonomy discovery. It maps all fields, domains, subject metadata, and relative data file paths:
 
 ```json
 {
@@ -101,32 +27,20 @@ The dataset located at `data/study-hub.json` follows a strict hierarchical schem
     {
       "id": "tech",
       "name": "Tech",
-      "description": "Technology, computing, and software engineering.",
+      "description": "Technology, computing, software engineering, and digital systems.",
       "icon": "code",
       "domains": [
         {
           "id": "cybersecurity",
           "name": "Cybersecurity",
-          "description": "Security of systems, networks, and applications.",
+          "description": "Protecting systems, networks, data, and applications from digital attacks.",
           "subjects": [
             {
               "id": "web-security",
               "name": "Web Security",
-              "description": "Defending web applications against common exploits.",
-              "topics": [
-                {
-                  "id": "sql-injection",
-                  "subtopic": "Injection Vulnerabilities",
-                  "title": "SQL Injection (SQLi)",
-                  "type": "Article",
-                  "level": "Beginner",
-                  "link": "https://example.com/demo/web-security/sql-injection",
-                  "notes": "Covers how unvalidated user inputs allow attackers to manipulate queries.",
-                  "time": 20,
-                  "why_it_matters": "SQL injection remains one of the most critical vulnerabilities.",
-                  "related_topics": ["xss-fundamentals", "csrf-defense"]
-                }
-              ]
+              "description": "Defending web applications against common exploits, injection vulnerabilities, and authentication flaws.",
+              "dataFile": "data/tech/cybersecurity/web-security.json",
+              "topicCount": 4
             }
           ]
         }
@@ -137,7 +51,172 @@ The dataset located at `data/study-hub.json` follows a strict hierarchical schem
 }
 ```
 
-*Note: Resource links in the demonstration dataset point to `example.com` placeholders and are labeled as demonstration data.*
+### 2. Subject Data Files (`data/<field>/<domain>/<subject>.json`)
+Each subject has its own dedicated JSON file containing its full curriculum and topic details:
+
+```json
+{
+  "id": "web-security",
+  "name": "Web Security",
+  "description": "Defending web applications against common exploits, injection vulnerabilities, and authentication flaws.",
+  "fieldId": "tech",
+  "domainId": "cybersecurity",
+  "topics": [
+    {
+      "id": "sql-injection",
+      "subtopic": "Injection Vulnerabilities",
+      "title": "SQL Injection (SQLi)",
+      "type": "Article",
+      "level": "Beginner",
+      "link": "https://example.com/demo/web-security/sql-injection",
+      "notes": "Covers parameterized queries as the primary defense against query manipulation.",
+      "time": 20,
+      "why_it_matters": "SQL injection remains one of the most critical vulnerabilities.",
+      "related_topics": ["xss-fundamentals", "csrf-defense"]
+    }
+  ]
+}
+```
+
+---
+
+## 🎛️ Admin Management Panel (`/admin`)
+
+Study Hub features an integrated Admin Panel located at `admin/index.html` (accessible via the **Admin** button in the header navigation).
+
+### Key Admin Capabilities:
+1. **Curriculum Statistics Overview**: Real-time KPI cards displaying total Fields, Domains, Subjects, Topics, and Average Learning Times.
+2. **Field & Domain Management**: Add, edit, or remove fields and domains with automated slugification.
+3. **Subject Registry**: Register new subjects with auto-calculated file paths (`data/<field>/<domain>/<subject>.json`), descriptions, and instant subject selection.
+4. **Topic & Resource Manager**:
+   - Add/edit topics with subtopic grouping, difficulty level (*Beginner*, *Intermediate*, *Advanced*), format (*Article*, *Video*), estimated learning time (mins), and verified resource URLs.
+   - Comprehensive resource URL validation (`http://` or `https://`).
+5. **Bulk Topic Entry**: Add multiple topics at once using simple line-by-line syntax:
+   ```text
+   Topic Title | Subtopic Group | Level | Format | Minutes | Resource URL
+   ```
+6. **Static-Friendly Export Center**:
+   - **Download Full Data Package (ZIP)**: Generates a complete `study-hub-data.zip` containing `data/catalog.json` and all subject files in their respective folders (`data/<field>/<domain>/<subject>.json`) using JSZip.
+   - **Download Updated Catalog**: 1-click download of `data/catalog.json`.
+   - **Download Active Subject JSON**: 1-click download of the selected subject file.
+   - **Export CSV**: Export all topics in CSV format for spreadsheet editing.
+7. **Local Draft Persistence**: All changes are automatically saved to `localStorage`, allowing administrators to curate content across sessions without losing changes, with a 1-click **Reset to Saved Data** option.
+
+---
+
+## ✨ Main Features (Public Dashboard)
+
+- **Light-Themed Academic Design System**: Clean, minimal interface built with an 8px spacing scale, subtle shadows, and high contrast typography (Inter / system fonts).
+- **Clickable Resource Links**: Topic titles link directly to external resources (`target="_blank"` with `rel="noopener noreferrer"`) and an external-link icon.
+- **Independent Progress Checkboxes**: Click completion checkboxes without triggering resource hyperlinks; saves progress in real-time to `localStorage`.
+- **Hierarchical Knowledge Navigation**:
+  - **Explore by Field**: Categorized into *Tech*, *Non-Tech*, *Interdisciplinary*, and *Miscellaneous*.
+  - **Domain Explorer**: Drill down into specific disciplines (e.g., Cybersecurity, Artificial Intelligence, Cognitive Science, PKM).
+  - **Subject Curriculums**: View complete topic lists, progress percentages, and subject descriptions.
+  - **Topic Detail View**: In-depth view featuring subtopics, badges, estimated durations, "Why this topic matters", and practical notes.
+- **On-Demand & Cached Data Loading**: The catalog loads instantly; subject files are fetched on-demand with caching in `state.subjectCache` and a background preload worker.
+- **Global Search & Subject Filtering**: Real-time search across taxonomy levels and loaded topics with live keyword filtering, difficulty filters, and format filters.
+- **Study Hub Assistant (Chatbot Integration Point)**: Floating drawer panel searching the local knowledge base and recommending subjects/topics.
+
+---
+
+## 🛠️ Technology Stack
+
+- **HTML5**: Semantic elements with ARIA accessibility labels and visible focus indicators.
+- **Vanilla CSS**: CSS Custom Properties (variables), CSS Grid, Flexbox, media queries for responsive layouts, and `@media (prefers-reduced-motion: reduce)` support. No external UI frameworks (no Tailwind, Bootstrap).
+- **Vanilla JavaScript**: Pure modern JavaScript (ES6+) for routing, search, filtering, `localStorage` state management, and DOM rendering.
+- **JSZip (Admin Panel)**: Bundles the entire multi-JSON folder structure into a 1-click downloadable `.zip` package.
+
+---
+
+## 📁 Project Folder Structure
+
+```text
+study-hub/
+├── index.html              # Public dashboard HTML markup
+├── style.css               # Design tokens, themes, and dashboard stylesheet
+├── script.js               # Router, catalog loader, on-demand subject fetcher & search
+├── admin/
+│   ├── index.html          # Admin Panel interface & modals
+│   ├── admin.css           # Academic admin dashboard styling
+│   └── admin.js            # Admin state, CRUD, bulk entry & ZIP export
+├── data/
+│   ├── catalog.json        # Central curriculum catalog mapping all subjects
+│   ├── tech/               # Subject JSON files for Tech field
+│   │   ├── cybersecurity/
+│   │   │   ├── web-security.json
+│   │   │   └── cryptography.json
+│   │   ├── artificial-intelligence/
+│   │   │   └── machine-learning-basics.json
+│   │   ├── data-science/
+│   │   │   └── data-analysis-python.json
+│   │   ├── cloud-computing/
+│   │   │   └── cloud-architecture.json
+│   │   └── software-engineering/
+│   │       └── clean-code.json
+│   ├── non-tech/           # Subject JSON files for Non-Tech field
+│   │   ├── business-entrepreneurship/
+│   │   │   └── startup-fundamentals.json
+│   │   ├── finance-investing/
+│   │   │   └── personal-finance.json
+│   │   └── psychology/
+│   │       └── cognitive-biases.json
+│   ├── interdisciplinary/  # Subject JSON files for Interdisciplinary field
+│   │   ├── design-ux/
+│   │   │   └── ux-principles.json
+│   │   ├── cognitive-science/
+│   │   │   └── memory-mental-models.json
+│   │   └── biohacking-health/
+│   │       └── sleep-circadian-biology.json
+│   └── miscellaneous/      # Subject JSON files for Miscellaneous field
+│       ├── personal-knowledge-management/
+│       │   └── zettelkasten-pkm.json
+│       └── learning-how-to-learn/
+│           └── effective-learning-strategies.json
+├── assets/                 # Directory for static images and media assets
+├── .gitignore              # Ignores credentials, secrets, and system files
+└── README.md               # Project documentation and guide
+```
+
+---
+
+## 🚀 Running Locally
+
+Study Hub requires no compilers, build pipelines, or runtime dependencies.
+
+### Option 1: Python's Built-in HTTP Server (Recommended)
+Open a terminal in the `study-hub/` directory and run:
+
+```bash
+python -m http.server 8000
+```
+Then open:
+- Public Dashboard: `http://localhost:8000`
+- Admin Panel: `http://localhost:8000/admin/`
+
+### Option 2: Node.js (npx serve or http-server)
+```bash
+npx serve .
+```
+
+### Option 3: Direct File Opening
+Double-click `index.html` or open it in any modern browser. A bundled fallback dataset ensures full interactivity even when local `file://` browser policies restrict `fetch()`.
+
+---
+
+## 🔄 Admin Workflow for Static Hosting (e.g. GitHub Pages)
+
+Because GitHub Pages and static web servers cannot accept backend write APIs directly from browser JavaScript:
+1. Open the Admin Panel (`/admin`).
+2. Make your additions or edits to fields, domains, subjects, or topics.
+3. Click **Download Full Data Package (ZIP)** in the Export Center.
+4. Extract the contents directly into your project's `data/` directory (or use **Download catalog.json** / **Download Subject JSON** for targeted updates).
+5. Commit and push the updated JSON files to your GitHub repository:
+   ```bash
+   git add data/
+   git commit -m "Update curriculum via Study Hub Admin"
+   git push
+   ```
 
 ---
 
@@ -145,29 +224,16 @@ The dataset located at `data/study-hub.json` follows a strict hierarchical schem
 
 | Feature / Component | Status | Details |
 |---|---|---|
-| Light-themed Academic Dashboard | ✅ Completed | Implemented according to design system guidelines |
-| Hierarchy Navigation (Field &rarr; Domain &rarr; Subject &rarr; Topic) | ✅ Completed | Complete multi-level browsing with clickable breadcrumbs |
-| Instant Global Search | ✅ Completed | Multi-category matching (Fields, Domains, Subjects, Topics) |
-| Subject Filters | ✅ Completed | Difficulty and resource format dropdown filters |
-| Topic Completion & Local Persistence | ✅ Completed | Stored in `localStorage` with subject progress computation |
-| Sequential Navigation (Prev/Next) | ✅ Completed | Topic-by-topic navigation within current subject |
-| Curated Learning Paths View | ✅ Completed | Multi-topic tracks with dynamic progress indicators |
-| Chatbot Integration Widget | ✅ Completed | Floating trigger button and panel with local query matching |
-| Fully Responsive Layout | ✅ Completed | Verified for mobile, tablet, and desktop breakpoints |
-| Google Sheets Live Pipeline | ⏳ Planned | Architecture designed; ready for Google Apps Script JSON export |
-| Paid / Hosted AI Agent Backend | ⏳ Planned | Chatbot widget is decoupled and ready for external API hookup |
-
----
-
-## 🔮 Planned Integrations
-
-1. **Google Sheets Sync via Google Apps Script**:
-   - The Study Hub schema was intentionally designed so that a Google Sheet containing rows of fields, domains, subjects, and topics can be automatically exported as `study-hub.json` using a lightweight Google Apps Script web app or scheduled export.
-   - The frontend remains decoupled from direct Google authentication, consuming standard JSON via `fetch()`.
-
-2. **Advanced Study Hub AI Assistant**:
-   - The chatbot panel is designed with dedicated classes and event handlers in `script.js` and `style.css`.
-   - In production, the message submit handler can be pointed to a serverless endpoint running an LLM agent without altering the dashboard interface.
+| Multi-JSON Data Architecture | ✅ Completed | Catalog (`data/catalog.json`) + partitioned subject JSON files |
+| On-Demand & Lazy Subject Loading | ✅ Completed | Instant startup with background preloading and subject caching |
+| Clickable Resource Links | ✅ Completed | Direct external hyperlinks with `target="_blank"` and `rel="noopener noreferrer"` |
+| Topic Completion Checklists | ✅ Completed | Independent progress toggle stored in `localStorage` |
+| Admin Panel Interface | ✅ Completed | Curriculum KPI stats, Field/Domain CRUD, Subject registry |
+| Topic Manager & Bulk Entry | ✅ Completed | URL validation, line-by-line quick entry tool, live preview |
+| Static Export Center | ✅ Completed | 1-click full data ZIP bundling via JSZip, catalog & subject JSON downloads |
+| Global Search & Subject Filters | ✅ Completed | Real-time multi-level search across fields, domains, subjects, topics |
+| Study Hub Chatbot Point | ✅ Completed | Decoupled widget ready for AI/LLM backend connection |
+| Responsive Academic Styling | ✅ Completed | Mobile, tablet, and desktop tested without CSS frameworks |
 
 ---
 

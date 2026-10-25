@@ -1,0 +1,54 @@
+{
+  "id": "cryptography",
+  "name": "Applied Cryptography",
+  "description": "Mathematical principles and engineering practices for securing communication and sensitive data.",
+  "fieldId": "tech",
+  "domainId": "cybersecurity",
+  "topics": [
+    {
+      "id": "symmetric-vs-asymmetric",
+      "subtopic": "Encryption Fundamentals",
+      "title": "Symmetric vs Asymmetric Encryption",
+      "type": "Video",
+      "level": "Beginner",
+      "link": "https://example.com/demo/cryptography/symmetric-vs-asymmetric",
+      "notes": "Compares AES and ChaCha20 symmetric ciphers with RSA and ECC public-key cryptosystems, along with practical performance trade-offs.",
+      "time": 30,
+      "why_it_matters": "Modern secure communication relies on a hybrid model using asymmetric cryptography for key exchange and symmetric ciphers for bulk data.",
+      "related_topics": [
+        "tls-handshake",
+        "hashing-signatures"
+      ]
+    },
+    {
+      "id": "hashing-signatures",
+      "subtopic": "Integrity & Non-Repudiation",
+      "title": "Cryptographic Hash Functions & Digital Signatures",
+      "type": "Article",
+      "level": "Intermediate",
+      "link": "https://example.com/demo/cryptography/hashing-signatures",
+      "notes": "Examines collision resistance in SHA-256 and SHA-3, salt/pepper hashing for passwords (bcrypt/Argon2), and digital signature verification.",
+      "time": 25,
+      "why_it_matters": "Ensures message integrity and authenticates identity without ever revealing private credentials or raw passwords.",
+      "related_topics": [
+        "symmetric-vs-asymmetric",
+        "tls-handshake"
+      ]
+    },
+    {
+      "id": "tls-handshake",
+      "subtopic": "Transport Security",
+      "title": "The TLS 1.3 Handshake Protocol",
+      "type": "Article",
+      "level": "Advanced",
+      "link": "https://example.com/demo/cryptography/tls-handshake",
+      "notes": "Step-by-step walkthrough of TLS 1.3 key negotiation, Diffie-Hellman ephemeral exchange, and perfect forward secrecy.",
+      "time": 35,
+      "why_it_matters": "TLS is the backbone of HTTPS and internet confidentiality across all web and mobile applications.",
+      "related_topics": [
+        "symmetric-vs-asymmetric",
+        "hashing-signatures"
+      ]
+    }
+  ]
+}

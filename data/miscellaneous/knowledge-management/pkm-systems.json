@@ -1,0 +1,37 @@
+{
+  "id": "pkm-systems",
+  "name": "PKM Architectures & Note-Taking",
+  "description": "Systematic frameworks for personal knowledge organization, bidirectional linking, and lifelong learning.",
+  "fieldId": "miscellaneous",
+  "domainId": "knowledge-management",
+  "topics": [
+    {
+      "id": "zettelkasten-method",
+      "subtopic": "Note Organization",
+      "title": "The Zettelkasten Method & Atomic Notes",
+      "type": "Article",
+      "level": "Beginner",
+      "link": "https://example.com/demo/misc/zettelkasten-method",
+      "notes": "Niklas Luhmann's slip-box system: literature notes vs permanent notes, atomic concepts, and emergent connections.",
+      "time": 22,
+      "why_it_matters": "Transforms passive bookmarking into active intellectual compounding and synthesis.",
+      "related_topics": [
+        "spaced-repetition-retrieval"
+      ]
+    },
+    {
+      "id": "building-second-brain",
+      "subtopic": "Information Workflow",
+      "title": "CODE & PARA Organization Frameworks",
+      "type": "Video",
+      "level": "Beginner",
+      "link": "https://example.com/demo/misc/building-second-brain",
+      "notes": "Capture, Organize, Distill, Express (CODE) and Projects, Areas, Resources, Archives (PARA) organizational taxonomy.",
+      "time": 20,
+      "why_it_matters": "Eliminates digital clutter and aligns saved information with actionable outcomes and projects.",
+      "related_topics": [
+        "zettelkasten-method"
+      ]
+    }
+  ]
+}

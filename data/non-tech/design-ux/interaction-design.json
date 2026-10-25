@@ -1,0 +1,37 @@
+{
+  "id": "interaction-design",
+  "name": "Interaction Design Principles",
+  "description": "Foundational ergonomics, mental models, feedback loops, and usability heuristics for human-computer interfaces.",
+  "fieldId": "non-tech",
+  "domainId": "design-ux",
+  "topics": [
+    {
+      "id": "nielsen-heuristics",
+      "subtopic": "Usability Evaluation",
+      "title": "Jakob Nielsen's 10 Usability Heuristics",
+      "type": "Article",
+      "level": "Beginner",
+      "link": "https://example.com/demo/design/nielsen-heuristics",
+      "notes": "Walkthrough of visibility of system status, match between system and real world, error prevention, and recognition over recall.",
+      "time": 25,
+      "why_it_matters": "Provides a universally respected framework for spotting usability issues before user testing even begins.",
+      "related_topics": [
+        "visual-hierarchy-typography"
+      ]
+    },
+    {
+      "id": "visual-hierarchy-typography",
+      "subtopic": "Visual Layout",
+      "title": "Visual Hierarchy, Spacing & Typography",
+      "type": "Video",
+      "level": "Beginner",
+      "link": "https://example.com/demo/design/visual-hierarchy-typography",
+      "notes": "Scale, contrast, whitespace, grouping (Gestalt laws), and typographic scales to guide human eye scanning.",
+      "time": 20,
+      "why_it_matters": "Users scan web interfaces in F-shaped and Z-shaped patterns; clear hierarchy ensures immediate comprehension.",
+      "related_topics": [
+        "nielsen-heuristics"
+      ]
+    }
+  ]
+}

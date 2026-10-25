@@ -1,0 +1,23 @@
+{
+  "id": "continuous-delivery",
+  "name": "Continuous Integration & Delivery (CI/CD)",
+  "description": "Automated pipelines for testing, linting, packaging, and deploying software reliably.",
+  "fieldId": "tech",
+  "domainId": "devops",
+  "topics": [
+    {
+      "id": "cicd-best-practices",
+      "subtopic": "Pipeline Automation",
+      "title": "Building Reliable CI/CD Pipelines",
+      "type": "Video",
+      "level": "Beginner",
+      "link": "https://example.com/demo/devops/cicd-best-practices",
+      "notes": "Trigger mechanisms, stage parallelization, automated smoke tests, rollback strategies, and immutable artifacts.",
+      "time": 25,
+      "why_it_matters": "Enables teams to ship high-quality updates rapidly and with confidence, reducing downtime.",
+      "related_topics": [
+        "docker-fundamentals"
+      ]
+    }
+  ]
+}

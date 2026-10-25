@@ -1,0 +1,38 @@
+{
+  "id": "web-architecture",
+  "name": "Web Application Architecture",
+  "description": "System design for web applications, state management, caching, and database design.",
+  "fieldId": "tech",
+  "domainId": "full-stack-dev",
+  "topics": [
+    {
+      "id": "rest-api-design",
+      "subtopic": "API Architecture",
+      "title": "RESTful API Design & HTTP Semantics",
+      "type": "Article",
+      "level": "Beginner",
+      "link": "https://example.com/demo/fullstack/rest-api-design",
+      "notes": "HTTP methods, status code semantics, idempotent operations, pagination strategies, and API versioning patterns.",
+      "time": 22,
+      "why_it_matters": "Well-architected APIs are intuitive, stable for client integrations, and easy to maintain over time.",
+      "related_topics": [
+        "sql-injection",
+        "cors-architecture"
+      ]
+    },
+    {
+      "id": "database-indexing",
+      "subtopic": "Storage Optimization",
+      "title": "Relational Database Indexing & Query Tuning",
+      "type": "Article",
+      "level": "Intermediate",
+      "link": "https://example.com/demo/fullstack/database-indexing",
+      "notes": "B-Tree indexes, composite indexes, query execution plans (EXPLAIN), and table scan mitigation.",
+      "time": 30,
+      "why_it_matters": "Poor indexing is the most common cause of catastrophic performance degradation as data volume grows.",
+      "related_topics": [
+        "rest-api-design"
+      ]
+    }
+  ]
+}

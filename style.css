@@ -249,6 +249,22 @@ input, select {
   font-weight: 600;
 }
 
+.nav-admin-btn {
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--body-text);
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-admin-btn:hover {
+  background-color: var(--primary-subtle);
+  border-color: var(--primary-border);
+  color: var(--primary);
+}
+
 /* Header Right: Quick Search Input */
 .header-right {
   display: flex;

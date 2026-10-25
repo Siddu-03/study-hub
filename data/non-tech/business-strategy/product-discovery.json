@@ -1,0 +1,23 @@
+{
+  "id": "product-discovery",
+  "name": "Product Discovery & Management",
+  "description": "Identifying customer problems, hypothesis testing, unit economics, and prioritizing product features.",
+  "fieldId": "non-tech",
+  "domainId": "business-strategy",
+  "topics": [
+    {
+      "id": "jobs-to-be-done",
+      "subtopic": "Customer Research",
+      "title": "Jobs-to-be-Done (JTBD) Framework",
+      "type": "Article",
+      "level": "Beginner",
+      "link": "https://example.com/demo/business/jobs-to-be-done",
+      "notes": "Focusing on the underlying progress a customer desires rather than demographic traits or superficial feature requests.",
+      "time": 20,
+      "why_it_matters": "Products fail when they build features customers requested but that do not solve their core underlying struggle.",
+      "related_topics": [
+        "nielsen-heuristics"
+      ]
+    }
+  ]
+}

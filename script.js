@@ -623,6 +623,8 @@ const STORAGE_KEY_RECENT = 'study_hub_recent_topics';
 
 const state = {
   data: null,
+  catalog: null,
+  subjectCache: new Map(),
   completedTopics: new Set(),
   recentTopics: [],
   currentRoute: {
@@ -765,24 +767,103 @@ function getFieldIconSvg(iconName) {
 }
 
 // ----------------------------------------------------------------------------
-// 4. Data Loading & Indexing
+// 4. Data Loading, Caching & Indexing (Multi-JSON Catalog Architecture)
 // ----------------------------------------------------------------------------
 async function loadDataset() {
   try {
-    const response = await fetch('data/study-hub.json');
+    const response = await fetch('data/catalog.json');
     if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: Failed to fetch data/study-hub.json`);
+      throw new Error(`HTTP ${response.status}: Failed to fetch data/catalog.json`);
     }
-    const json = await response.json();
-    state.data = json;
+    const catalog = await response.json();
+    state.catalog = catalog;
+    state.data = catalog;
   } catch (err) {
-    console.warn('Network fetch for study-hub.json encountered an issue; falling back to bundled dataset:', err);
+    console.warn('Network fetch for data/catalog.json encountered an issue; falling back to bundled dataset:', err);
     // Graceful fallback allows opening index.html directly via file://
     state.data = FALLBACK_DATA;
+    state.catalog = FALLBACK_DATA;
   }
 
-  // Once data is loaded, initialize router
+  // Once catalog is loaded, initialize router immediately
   handleRoute();
+
+  // Asynchronously preload subject files to populate search, topics, and continue learning
+  preloadAllSubjects();
+}
+
+// Fetch a single subject's full details and its topics on-demand
+async function fetchSubjectData(subjectId) {
+  if (state.subjectCache.has(subjectId)) {
+    return state.subjectCache.get(subjectId);
+  }
+
+  const sInfo = findSubject(subjectId);
+  if (!sInfo || !sInfo.subject) return null;
+
+  const subject = sInfo.subject;
+
+  // If topics are already attached (e.g. from fallback data or previous load)
+  if (Array.isArray(subject.topics) && subject.topics.length > 0) {
+    state.subjectCache.set(subjectId, subject);
+    return subject;
+  }
+
+  if (!subject.dataFile) {
+    subject.topics = subject.topics || [];
+    state.subjectCache.set(subjectId, subject);
+    return subject;
+  }
+
+  try {
+    const res = await fetch(subject.dataFile);
+    if (!res.ok) throw new Error(`HTTP ${res.status} fetching ${subject.dataFile}`);
+    const data = await res.json();
+    subject.topics = data.topics || [];
+    state.subjectCache.set(subjectId, subject);
+    return subject;
+  } catch (err) {
+    console.warn(`Could not load subject data file for ${subjectId}:`, err);
+    subject.topics = subject.topics || [];
+    state.subjectCache.set(subjectId, subject);
+    return subject;
+  }
+}
+
+// Preload all subject JSON files asynchronously
+async function preloadAllSubjects() {
+  if (!state.data || !state.data.fields) return;
+  const promises = [];
+
+  for (const field of state.data.fields) {
+    for (const domain of (field.domains || [])) {
+      for (const subject of (domain.subjects || [])) {
+        if (subject.dataFile && (!subject.topics || subject.topics.length === 0)) {
+          promises.push(
+            fetch(subject.dataFile)
+              .then(res => res.ok ? res.json() : null)
+              .then(data => {
+                if (data && data.topics) {
+                  subject.topics = data.topics;
+                  state.subjectCache.set(subject.id, subject);
+                }
+              })
+              .catch(err => console.warn(`Preload error for ${subject.id}:`, err))
+          );
+        } else if (Array.isArray(subject.topics) && subject.topics.length > 0) {
+          state.subjectCache.set(subject.id, subject);
+        }
+      }
+    }
+  }
+
+  if (promises.length > 0) {
+    await Promise.allSettled(promises);
+    // Refresh views that rely on topic counts / continue learning if currently visible
+    if (state.currentRoute.view === 'home' || state.currentRoute.view === 'paths') {
+      renderCurrentView();
+    }
+  }
 }
 
 // Lookup Helpers
@@ -954,7 +1035,7 @@ function handleRoute() {
 // ----------------------------------------------------------------------------
 // 6. View Rendering Engine
 // ----------------------------------------------------------------------------
-function renderCurrentView() {
+async function renderCurrentView() {
   const container = document.getElementById('view-container');
   if (!container || !state.data) return;
 
@@ -971,10 +1052,10 @@ function renderCurrentView() {
       renderDomainView(container, domainId);
       break;
     case 'subject':
-      renderSubjectView(container, subjectId);
+      await renderSubjectView(container, subjectId);
       break;
     case 'topic':
-      renderTopicView(container, topicId);
+      await renderTopicView(container, topicId);
       break;
     case 'paths':
       renderPathsView(container);
@@ -1257,7 +1338,9 @@ function renderFieldView(container, fieldId) {
         ${domains.map(d => {
           const subjects = d.subjects || [];
           let topicCount = 0;
-          subjects.forEach(s => topicCount += (s.topics || []).length);
+          subjects.forEach(s => {
+            topicCount += (s.topicCount !== undefined ? s.topicCount : (s.topics || []).length);
+          });
           return `
             <div class="standard-card" data-domain-id="${d.id}" tabindex="0" role="button" aria-label="Explore domain ${escapeHTML(d.name)}">
               <div>
@@ -1328,8 +1411,9 @@ function renderDomainView(container, domainId) {
       <div class="grid-cards">
         ${subjects.map(s => {
           const topics = s.topics || [];
+          const count = s.topicCount !== undefined ? s.topicCount : topics.length;
           const completedInSub = topics.filter(t => state.completedTopics.has(t.id)).length;
-          const percent = topics.length > 0 ? Math.round((completedInSub / topics.length) * 100) : 0;
+          const percent = count > 0 && topics.length > 0 ? Math.round((completedInSub / count) * 100) : 0;
           return `
             <div class="standard-card" data-subject-id="${s.id}" tabindex="0" role="button" aria-label="Explore subject ${escapeHTML(s.name)}">
               <div>
@@ -1337,7 +1421,7 @@ function renderDomainView(container, domainId) {
                 <p class="card-desc">${escapeHTML(s.description || 'Core study area covering theoretical concepts and practical applications.')}</p>
               </div>
               <div class="card-footer">
-                <span>${topics.length} ${topics.length === 1 ? 'Topic' : 'Topics'} ${percent > 0 ? `&bull; ${percent}% completed` : ''}</span>
+                <span>${count} ${count === 1 ? 'Topic' : 'Topics'} ${percent > 0 ? `&bull; ${percent}% completed` : ''}</span>
                 <span class="card-action">View Topics &rarr;</span>
               </div>
             </div>
@@ -1364,8 +1448,8 @@ function renderDomainView(container, domainId) {
 // ----------------------------------------------------------------------------
 // View 4: Subject View (Topics with Search, Filters, and Completion Controls)
 // ----------------------------------------------------------------------------
-function renderSubjectView(container, subjectId) {
-  const sInfo = findSubject(subjectId);
+async function renderSubjectView(container, subjectId) {
+  let sInfo = findSubject(subjectId);
   if (!sInfo) {
     container.innerHTML = `
       <div class="error-state">
@@ -1376,6 +1460,18 @@ function renderSubjectView(container, subjectId) {
     `;
     document.getElementById('btn-back-home')?.addEventListener('click', () => navigateTo({ view: 'home' }));
     return;
+  }
+
+  // If topics are not yet loaded for this subject, fetch on-demand
+  if ((!sInfo.subject.topics || sInfo.subject.topics.length === 0) && sInfo.subject.dataFile) {
+    container.innerHTML = `
+      <div class="loading-state" style="padding: 4rem 1rem; text-align: center;">
+        <div class="spinner"></div>
+        <p style="color: var(--body-text); font-size: 0.95rem;">Loading curriculum for <strong>${escapeHTML(sInfo.subject.name)}</strong>...</p>
+      </div>
+    `;
+    await fetchSubjectData(subjectId);
+    sInfo = findSubject(subjectId);
   }
 
   const { subject, domain, field } = sInfo;
@@ -1557,8 +1653,20 @@ function renderSubjectView(container, subjectId) {
 // ----------------------------------------------------------------------------
 // View 5: Topic Detail View (Metadata, Notes, Resource Button, Nav, Related)
 // ----------------------------------------------------------------------------
-function renderTopicView(container, topicId) {
-  const tInfo = findTopic(topicId);
+async function renderTopicView(container, topicId) {
+  let tInfo = findTopic(topicId);
+  if (!tInfo) {
+    // If topic is not found yet, it could be in an unloaded subject file
+    container.innerHTML = `
+      <div class="loading-state" style="padding: 4rem 1rem; text-align: center;">
+        <div class="spinner"></div>
+        <p style="color: var(--body-text); font-size: 0.95rem;">Locating topic details...</p>
+      </div>
+    `;
+    await preloadAllSubjects();
+    tInfo = findTopic(topicId);
+  }
+
   if (!tInfo) {
     container.innerHTML = `
       <div class="error-state">

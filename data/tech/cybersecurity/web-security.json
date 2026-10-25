@@ -1,0 +1,67 @@
+{
+  "id": "web-security",
+  "name": "Web Security",
+  "description": "Defending web applications against common exploits, injection vulnerabilities, and authentication flaws.",
+  "fieldId": "tech",
+  "domainId": "cybersecurity",
+  "topics": [
+    {
+      "id": "sql-injection",
+      "subtopic": "Injection Vulnerabilities",
+      "title": "SQL Injection (SQLi)",
+      "type": "Article",
+      "level": "Beginner",
+      "link": "https://example.com/demo/web-security/sql-injection",
+      "notes": "Covers how unvalidated user inputs allow attackers to interfere with backend database queries. Explains parameterized queries as the primary defense.",
+      "time": 20,
+      "why_it_matters": "SQL injection remains one of the most critical web application vulnerabilities, leading to severe data breaches if left unmitigated.",
+      "related_topics": [
+        "xss-fundamentals",
+        "csrf-defense"
+      ]
+    },
+    {
+      "id": "xss-fundamentals",
+      "subtopic": "Client-Side Attacks",
+      "title": "Cross-Site Scripting (XSS)",
+      "type": "Video",
+      "level": "Beginner",
+      "link": "https://example.com/demo/web-security/xss-fundamentals",
+      "notes": "Details Stored, Reflected, and DOM-based XSS vulnerabilities. Explores Content Security Policy (CSP) and context-aware HTML output encoding.",
+      "time": 25,
+      "why_it_matters": "XSS allows malicious scripts to run in victims' browsers, compromising cookies, session tokens, and sensitive client data.",
+      "related_topics": [
+        "sql-injection",
+        "csrf-defense"
+      ]
+    },
+    {
+      "id": "csrf-defense",
+      "subtopic": "Session Flaws",
+      "title": "Cross-Site Request Forgery (CSRF)",
+      "type": "Article",
+      "level": "Intermediate",
+      "link": "https://example.com/demo/web-security/csrf-defense",
+      "notes": "Explains how unauthorized commands are transmitted from a trusted user. Discusses anti-CSRF tokens and SameSite cookie attributes.",
+      "time": 18,
+      "why_it_matters": "CSRF exploits ambient credentials (like cookies), forcing authenticated users to unintentionally perform sensitive actions.",
+      "related_topics": [
+        "xss-fundamentals"
+      ]
+    },
+    {
+      "id": "cors-architecture",
+      "subtopic": "Browser Security Models",
+      "title": "CORS & Browser Origin Security",
+      "type": "Article",
+      "level": "Intermediate",
+      "link": "https://example.com/demo/web-security/cors-architecture",
+      "notes": "Comprehensive breakdown of Same-Origin Policy (SOP), preflight OPTIONS requests, and proper Access-Control header configurations.",
+      "time": 22,
+      "why_it_matters": "Misconfigured CORS headers can inadvertently expose private APIs to malicious third-party origins.",
+      "related_topics": [
+        "csrf-defense"
+      ]
+    }
+  ]
+}

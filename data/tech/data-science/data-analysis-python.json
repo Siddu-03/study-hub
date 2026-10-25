@@ -1,0 +1,37 @@
+{
+  "id": "data-analysis-python",
+  "name": "Data Analysis with Python",
+  "description": "Practical data manipulation, cleaning, and exploratory data analysis using industry-standard libraries.",
+  "fieldId": "tech",
+  "domainId": "data-science",
+  "topics": [
+    {
+      "id": "pandas-dataframes",
+      "subtopic": "Tabular Data Manipulation",
+      "title": "Exploratory Data Analysis with Pandas",
+      "type": "Article",
+      "level": "Beginner",
+      "link": "https://example.com/demo/data-science/pandas-dataframes",
+      "notes": "Techniques for filtering, grouping, aggregating, handling missing values, and reshaping tabular datasets.",
+      "time": 30,
+      "why_it_matters": "Real-world data is messy; over 70% of a data scientist's time is spent wrangling and understanding data structures.",
+      "related_topics": [
+        "data-visualization-principles"
+      ]
+    },
+    {
+      "id": "data-visualization-principles",
+      "subtopic": "Visual Analytics",
+      "title": "Effective Data Storytelling & Visualization",
+      "type": "Video",
+      "level": "Beginner",
+      "link": "https://example.com/demo/data-science/data-visualization-principles",
+      "notes": "Color theory, chart selection guidelines, decluttering visuals, and communicating statistical findings clearly to stakeholders.",
+      "time": 25,
+      "why_it_matters": "Data insights provide no value unless they can be communicated clearly to drive decision-making.",
+      "related_topics": [
+        "pandas-dataframes"
+      ]
+    }
+  ]
+}

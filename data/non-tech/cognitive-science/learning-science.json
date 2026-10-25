@@ -1,0 +1,37 @@
+{
+  "id": "learning-science",
+  "name": "The Science of Learning",
+  "description": "Evidence-based techniques for mastering complex topics, long-term retention, and deliberate practice.",
+  "fieldId": "non-tech",
+  "domainId": "cognitive-science",
+  "topics": [
+    {
+      "id": "spaced-repetition-retrieval",
+      "subtopic": "Memory Consolidation",
+      "title": "Spaced Repetition & Active Retrieval",
+      "type": "Article",
+      "level": "Beginner",
+      "link": "https://example.com/demo/cognitive/spaced-repetition-retrieval",
+      "notes": "Ebbinghaus forgetting curve, Leitner system, active recall testing effect, and interval scheduling.",
+      "time": 18,
+      "why_it_matters": "Active retrieval produces significantly higher long-term retention compared to passive rereading or highlighting.",
+      "related_topics": [
+        "cognitive-load-theory"
+      ]
+    },
+    {
+      "id": "cognitive-load-theory",
+      "subtopic": "Working Memory",
+      "title": "Cognitive Load Theory in Knowledge Acquisition",
+      "type": "Article",
+      "level": "Intermediate",
+      "link": "https://example.com/demo/cognitive/cognitive-load-theory",
+      "notes": "Intrinsic, extraneous, and germane cognitive load; working memory limitations; and chunking strategies.",
+      "time": 24,
+      "why_it_matters": "Helps learners and educators structure information so working memory is not overwhelmed.",
+      "related_topics": [
+        "spaced-repetition-retrieval"
+      ]
+    }
+  ]
+}

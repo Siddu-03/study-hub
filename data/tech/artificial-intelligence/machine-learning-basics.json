@@ -1,0 +1,67 @@
+{
+  "id": "machine-learning-basics",
+  "name": "Machine Learning Foundations",
+  "description": "Core concepts, learning paradigms, and mathematical models that power modern AI systems.",
+  "fieldId": "tech",
+  "domainId": "artificial-intelligence",
+  "topics": [
+    {
+      "id": "supervised-learning",
+      "subtopic": "Learning Paradigms",
+      "title": "Supervised Learning & Regression",
+      "type": "Article",
+      "level": "Beginner",
+      "link": "https://example.com/demo/ai/supervised-learning",
+      "notes": "Introduction to labeled training data, linear regression, cost functions, gradient descent, and evaluation metrics (MSE, R2).",
+      "time": 25,
+      "why_it_matters": "Forms the foundation of predictive modeling across business forecasting, diagnostics, and classification tasks.",
+      "related_topics": [
+        "overfitting-regularization",
+        "neural-networks-intro"
+      ]
+    },
+    {
+      "id": "overfitting-regularization",
+      "subtopic": "Model Validation",
+      "title": "Bias-Variance Tradeoff & Regularization",
+      "type": "Article",
+      "level": "Intermediate",
+      "link": "https://example.com/demo/ai/overfitting-regularization",
+      "notes": "Detailed treatment of underfitting, overfitting, cross-validation, and L1 (Lasso) / L2 (Ridge) penalty terms.",
+      "time": 20,
+      "why_it_matters": "Crucial for building models that generalize accurately to unseen real-world data rather than memorizing training data.",
+      "related_topics": [
+        "supervised-learning"
+      ]
+    },
+    {
+      "id": "neural-networks-intro",
+      "subtopic": "Deep Learning",
+      "title": "Artificial Neural Networks & Backpropagation",
+      "type": "Video",
+      "level": "Intermediate",
+      "link": "https://example.com/demo/ai/neural-networks-intro",
+      "notes": "Perceptrons, activation functions (ReLU, Sigmoid), computational graphs, chain rule calculus, and weights updating.",
+      "time": 40,
+      "why_it_matters": "Deep learning architectures power contemporary computer vision, speech synthesis, and large language models.",
+      "related_topics": [
+        "supervised-learning",
+        "transformer-architectures"
+      ]
+    },
+    {
+      "id": "transformer-architectures",
+      "subtopic": "Modern Deep Learning",
+      "title": "Attention Mechanisms & Transformers",
+      "type": "Article",
+      "level": "Advanced",
+      "link": "https://example.com/demo/ai/transformer-architectures",
+      "notes": "Self-attention mechanism, positional encodings, multi-head attention, and transformer encoder-decoder architectures.",
+      "time": 45,
+      "why_it_matters": "The core breakthrough behind state-of-the-art generative AI systems, modern NLP, and multimodal AI.",
+      "related_topics": [
+        "neural-networks-intro"
+      ]
+    }
+  ]
+}

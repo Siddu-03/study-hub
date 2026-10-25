@@ -1,0 +1,37 @@
+{
+  "id": "cloud-infrastructure",
+  "name": "Cloud Infrastructure & Containers",
+  "description": "Modern infrastructure paradigms including Docker containers, Kubernetes orchestration, and cloud primitives.",
+  "fieldId": "tech",
+  "domainId": "cloud-computing",
+  "topics": [
+    {
+      "id": "docker-fundamentals",
+      "subtopic": "Containerization",
+      "title": "Docker Containers & Images",
+      "type": "Video",
+      "level": "Beginner",
+      "link": "https://example.com/demo/cloud/docker-fundamentals",
+      "notes": "Understanding containerization vs virtualization, Dockerfiles, multi-stage builds, and container networking.",
+      "time": 30,
+      "why_it_matters": "Ensures environment parity across local development, testing, and production servers.",
+      "related_topics": [
+        "kubernetes-orchestration"
+      ]
+    },
+    {
+      "id": "kubernetes-orchestration",
+      "subtopic": "Orchestration",
+      "title": "Kubernetes Architecture & Pod Lifecycle",
+      "type": "Article",
+      "level": "Advanced",
+      "link": "https://example.com/demo/cloud/kubernetes-orchestration",
+      "notes": "Control plane components, worker nodes, Pods, Deployments, Services, Ingress controllers, and automated scaling.",
+      "time": 40,
+      "why_it_matters": "Kubernetes is the de facto operating system for enterprise-scale distributed cloud applications.",
+      "related_topics": [
+        "docker-fundamentals"
+      ]
+    }
+  ]
+}

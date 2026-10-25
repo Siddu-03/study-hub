@@ -1,0 +1,37 @@
+{
+  "id": "modern-javascript",
+  "name": "Modern JavaScript & TypeScript",
+  "description": "Deep dive into execution context, event loop, asynchronous patterns, and static type safety.",
+  "fieldId": "tech",
+  "domainId": "programming-languages",
+  "topics": [
+    {
+      "id": "event-loop-async",
+      "subtopic": "Runtime Mechanics",
+      "title": "The JavaScript Event Loop & Concurrency",
+      "type": "Video",
+      "level": "Intermediate",
+      "link": "https://example.com/demo/languages/event-loop-async",
+      "notes": "Call stack, Web APIs, microtask queue, macrotask queue, Promises, and async/await mechanics.",
+      "time": 25,
+      "why_it_matters": "Mastering asynchronous flow prevents UI freezes, race conditions, and unhandled promise rejections in web apps.",
+      "related_topics": [
+        "typescript-generics"
+      ]
+    },
+    {
+      "id": "typescript-generics",
+      "subtopic": "Type Safety",
+      "title": "TypeScript Generics & Utility Types",
+      "type": "Article",
+      "level": "Intermediate",
+      "link": "https://example.com/demo/languages/typescript-generics",
+      "notes": "Generic constraints, type inference, conditional types, Mapped Types, and built-in helpers (Pick, Omit, Partial).",
+      "time": 28,
+      "why_it_matters": "Allows developers to build reusable, resilient libraries with strict compile-time guarantees.",
+      "related_topics": [
+        "event-loop-async"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "genomic-data",
+  "name": "Sequence Analysis & Genomics",
+  "description": "Dynamic programming for sequence alignment, BLAST heuristics, and genome variant discovery.",
+  "fieldId": "interdisciplinary",
+  "domainId": "bioinformatics",
+  "topics": [
+    {
+      "id": "sequence-alignment",
+      "subtopic": "Algorithmic Genomics",
+      "title": "Pairwise Sequence Alignment (Needleman-Wunsch & Smith-Waterman)",
+      "type": "Article",
+      "level": "Advanced",
+      "link": "https://example.com/demo/bioinformatics/sequence-alignment",
+      "notes": "Global vs local sequence alignment using dynamic programming matrices, scoring schemas, and gap penalty formulations.",
+      "time": 35,
+      "why_it_matters": "Fundamental to identifying evolutionary relationships, functional gene domains, and disease-causing mutations.",
+      "related_topics": [
+        "supervised-learning"
+      ]
+    }
+  ]
+}

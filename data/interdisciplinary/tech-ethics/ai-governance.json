@@ -1,0 +1,24 @@
+{
+  "id": "ai-governance",
+  "name": "AI Ethics & Algorithmic Fairness",
+  "description": "Analyzing bias in automated decision systems, transparency, privacy rights, and responsible AI guidelines.",
+  "fieldId": "interdisciplinary",
+  "domainId": "tech-ethics",
+  "topics": [
+    {
+      "id": "algorithmic-bias",
+      "subtopic": "Fairness in Machine Learning",
+      "title": "Detecting & Mitigating Algorithmic Bias",
+      "type": "Article",
+      "level": "Intermediate",
+      "link": "https://example.com/demo/ethics/algorithmic-bias",
+      "notes": "Disparate impact, representation disparities in training corpora, demographic parity, and ethical auditing methods.",
+      "time": 28,
+      "why_it_matters": "Automated scoring systems can amplify historic societal discrimination if unchecked.",
+      "related_topics": [
+        "supervised-learning",
+        "nielsen-heuristics"
+      ]
+    }
+  ]
+}
